@@ -13,8 +13,8 @@ def run_method(output_dir, name, bam_input, ref_input, parameters):
     log_file = os.path.join(output_dir, f'{name}.log.txt')
 
     # Run Bamboozle
-    # with open(ref_input, 'r') as file:
-    #     first_line = file.readline()
+    with open(ref_input, 'r') as file:
+        ref_pos = file.readline()[-1]
 
     # ref_pos = # Read the text inside the ref_input file
     # anon_bam_pos = f"{output_dir}/{name}.bamboozled.bam"
@@ -25,7 +25,9 @@ def run_method(output_dir, name, bam_input, ref_input, parameters):
     # content += a.stdout
     # content += f"\n\n"
 
-    content = f"{bam_input}\n{ref_input}\n"
+    content = f"bam pos: {bam_input}\n"
+    content += f"ref pos: {ref_input}\n"
+    content += f".fa  pos: {ref_pos}\n"
 
     content += f"All clear - successfull run"
 

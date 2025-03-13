@@ -14,7 +14,7 @@ def run_method(output_dir, name, bam_input, ref_input, parameters):
 
     # Run Bamboozle
     with open(ref_input, 'r') as file:
-        ref_pos = file.readline()
+        ref_pos = file.readline().strip()
 
     # ref_pos = # Read the text inside the ref_input file
     # anon_bam_pos = f"{output_dir}/{name}.bamboozled.bam"

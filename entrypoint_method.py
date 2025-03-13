@@ -40,7 +40,7 @@ def main():
     parser.add_argument('--output_dir', type=str, help='output directory where method will store results.')
     parser.add_argument('--name', type=str, help='name of the dataset')
     parser.add_argument('--init.bam',type=str, help='input file')
-    parser.add_argument('--genome.txt',type=str, help='path to reference fasta')
+    parser.add_argument('--refgenome.txt',type=str, help='path to reference fasta')
 
     # Parse arguments
     args, extra_arguments = parser.parse_known_args()

@@ -16,7 +16,7 @@ def run_method(output_dir, name, bam_input, ref_input, parameters):
     with open(ref_input, 'r') as file:
         ref_pos = file.readline().strip()
 
-    anon_bam_pos = f"{output_dir}/{name}.bamboozled.bam"
+    anon_bam_pos = f"{output_dir}/{name}.anon.bam"
     bamboozle_command = f"BAMboozle --bam {bam_input} --out {anon_bam_pos} --fa {ref_pos}"
     content = f"Bamboozle command:\n{bamboozle_command}\n"
     a = subprocess.run(bamboozle_command.split(),capture_output=True,text=True)

@@ -13,14 +13,19 @@ def run_method(output_dir, name, bam_input, ref_input, parameters):
     log_file = os.path.join(output_dir, f'{name}.log.txt')
 
     # Run Bamboozle
-    ref_pos = # Read the text inside the ref_input file
-    anon_bam_pos = f"{output_dir}/{name}.bamboozled.bam"
-    bamboozle_command = f"BAMboozle --bam {bam_input} --out {anon_bam_pos} --fa {ref_pos}"
-    content += f"Bamboozle command:\n{bamboozle_command}\n"
-    a = subprocess.run(bamboozle_command.split(),capture_output=True,text=True)
-    content += f"Bamboozle output:\n"
-    content += a.stdout
-    content += f"\n\n"
+    # with open(ref_input, 'r') as file:
+    #     first_line = file.readline()
+
+    # ref_pos = # Read the text inside the ref_input file
+    # anon_bam_pos = f"{output_dir}/{name}.bamboozled.bam"
+    # bamboozle_command = f"BAMboozle --bam {bam_input} --out {anon_bam_pos} --fa {ref_pos}"
+    # content += f"Bamboozle command:\n{bamboozle_command}\n"
+    # a = subprocess.run(bamboozle_command.split(),capture_output=True,text=True)
+    # content += f"Bamboozle output:\n"
+    # content += a.stdout
+    # content += f"\n\n"
+
+    content = f"{bam_input}\n{ref_input}\n"
 
     content += f"All clear - successfull run"
 

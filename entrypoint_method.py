@@ -46,7 +46,7 @@ def main():
     args, extra_arguments = parser.parse_known_args()
 
     bam_input = getattr(args, 'init.bam')
-    ref_input = getattr(args, 'genome.txt')
+    ref_input = getattr(args, 'refgenome.txt')
 
     # run_method(args.output_dir, args.name, input_files, extra_arguments)
     run_method(args.output_dir, args.name, bam_input, ref_input, extra_arguments)

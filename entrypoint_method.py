@@ -18,13 +18,13 @@ def run_method(output_dir, name, bam_input, ref_input, parameters):
 
     anon_bam_pos = f"{output_dir}/{name}.bamboozled.bam"
     bamboozle_command = f"BAMboozle --bam {bam_input} --out {anon_bam_pos} --fa {ref_pos}"
-    content += f"Bamboozle command:\n{bamboozle_command}\n"
+    content = f"Bamboozle command:\n{bamboozle_command}\n"
     a = subprocess.run(bamboozle_command.split(),capture_output=True,text=True)
     content += f"Bamboozle output:\n"
     content += a.stdout
     content += f"\n\n"
 
-    content = f"bam pos: {bam_input}\n"
+    content += f"bam pos: {bam_input}\n"
     content += f"ref pos: {ref_input}\n"
     content += f".fa pos: {ref_pos}\n"
 

@@ -16,6 +16,7 @@ def run_method(output_dir, name, bam_input, ref_input, parameters):
     with open(ref_input, 'r') as file:
         ref_pos = file.readline().strip()
 
+    # Run BAMboozle
     anon_bam_pos = f"{output_dir}/{name}.anon.bam"
     bamboozle_command = f"BAMboozle --bam {bam_input} --out {anon_bam_pos} --fa {ref_pos}"
     content = f"Bamboozle command:\n{bamboozle_command}\n"
@@ -24,9 +25,15 @@ def run_method(output_dir, name, bam_input, ref_input, parameters):
     content += a.stdout
     content += f"\n\n"
 
-    content += f"bam pos: {bam_input}\n"
-    content += f"ref pos: {ref_input}\n"
-    content += f".fa pos: {ref_pos}\n"
+    # Run samtools fastq to generate fastq files
+    R1_out = f"{output_dir}/{name}.anon_R1.fastq"
+    R2_out = f"{output_dir}/{name}.anon_R2.fastq"
+    unpaired_out = f"{output_dir}/{name}.anon_unpaired.fastq"
+    bamtofastq_command = f"samtools fastq -1 {R1_out} -2 {R2_out} -s {unpaired_out} {anon_bam_pos}"
+    a = subprocess.run(bamtofastq_command.split(),capture_output=True,text=True)
+    content += f"Bamtofastq output:\n"
+    content += a.stdout
+    content += f"\n\n"
 
     content += f"All clear - successfull run"
 

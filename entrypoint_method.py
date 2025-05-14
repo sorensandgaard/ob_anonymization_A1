@@ -39,6 +39,13 @@ def run_method(output_dir, name, bam_input, ref_input, parameters):
     fastq_foldername = a.stdout[:-1]
     content += f"fastq foldername: {fastq_foldername}\n\n"
 
+    anon_read_path = os.path.join(output_dir, f'{name}.readpath.txt')
+    a = subprocess.run(f"touch {anon_read_path}".split(),capture_output=True,text=True)
+    content += a.stdout
+
+    with open(genome_path, 'w') as file:
+        file.write(anon_fastq_pos)
+
     # Run samtools fastq to generate fastq files
     # R1_out = f"{output_dir}/{name}.anon_R1.fastq"
     # R2_out = f"{output_dir}/{name}.anon_R2.fastq"

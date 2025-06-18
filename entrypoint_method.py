@@ -25,9 +25,12 @@ def run_method(output_dir, name, bam_input, ref_input, parameters):
     content += a.stdout
     content += f"\n\n"
 
-    # Run bamtofastq
+    # Run bamtofastq through CellRanger
+    # Use the wrapper in envs to load Cellranger
+    wrapper_path = "envs/CellRanger-8.0.1_wrapper.sh"
+
     anon_fastq_pos = f"{output_dir}/anon_fastqs"
-    bamtofastq_command = f"bamtofastq --nthreads=16 {anon_bam_pos} {anon_fastq_pos}"
+    bamtofastq_command = f"{wrapper_path} bamtofastq --nthreads=16 {anon_bam_pos} {anon_fastq_pos}"
     content += f"Bamtofastq command:\n{bamtofastq_command}\n"
     a = subprocess.run(bamtofastq_command.split(),capture_output=True,text=True)
     content += f"Bamtofastq output:\n{a.stdout}\n\n"

@@ -12,13 +12,16 @@ def run_method(output_dir, name, bam_input, ref_input, parameters):
     os.makedirs(output_dir, exist_ok=True)
     log_file = os.path.join(output_dir, f'{name}.log.txt')
 
-    # Run Bamboozle
+    # Find reference position from ref_input
     with open(ref_input, 'r') as file:
         ref_pos = file.readline().strip()
 
+    # Find wrapper for anaconda environment with BAMboozle installed
+    wrapper_bamboozle = "envs/BAMboozle-0.5.0_wrapper.sh"
+
     # Run BAMboozle
     anon_bam_pos = f"{output_dir}/{name}.anon.bam"
-    bamboozle_command = f"BAMboozle --bam {bam_input} --out {anon_bam_pos} --fa {ref_pos}"
+    bamboozle_command = f"{wrapper_bamboozle} --bam {bam_input} --out {anon_bam_pos} --fa {ref_pos}"
     content = f"Bamboozle command:\n{bamboozle_command}\n"
     a = subprocess.run(bamboozle_command.split(),capture_output=True,text=True)
     content += f"Bamboozle output:\n"
@@ -27,10 +30,10 @@ def run_method(output_dir, name, bam_input, ref_input, parameters):
 
     # Run bamtofastq through CellRanger
     # Use the wrapper in envs to load Cellranger
-    wrapper_path = "envs/CellRanger-8.0.1_wrapper.sh"
+    wrapper_bamtofastq = "envs/CellRanger-8.0.1_wrapper.sh"
 
     anon_fastq_pos = f"{output_dir}/anon_fastqs"
-    bamtofastq_command = f"{wrapper_path} bamtofastq --nthreads=16 {anon_bam_pos} {anon_fastq_pos}"
+    bamtofastq_command = f"{wrapper_bamtofastq} bamtofastq --nthreads=16 {anon_bam_pos} {anon_fastq_pos}"
     content += f"Bamtofastq command:\n{bamtofastq_command}\n"
     a = subprocess.run(bamtofastq_command.split(),capture_output=True,text=True)
     content += f"Bamtofastq output:\n{a.stdout}\n\n"
